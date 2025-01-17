@@ -1,0 +1,140 @@
+
+Display the path to and name of your HOME directory: echo $HOME or echo ~ or pwd (print working directory)
+
+Display the login name using which you have logged into the system: echo $USER or whoami
+
+Display the hidden files of your current directory: ls -a
+
+List the names of all the files in your home directory: ls ~ (including hidden files: ls -a ~)
+
+Using the long listing format to display the files in your directory: ls -l (including hidden files: ls -la)
+
+List the files beginning with chap followed by any number or any lower case alphabet: ls chap[a-z0-9]*
+
+Give appropriate command to create directory called C_prog under your home directory: mkdir ~/C_prog
+
+Create the following directories under your home directory: mkdir ~/newdir, mkdir ~/newdirectory
+
+List the names of all the files, including the contents of the sub directories under your home directory: find ~
+
+Remove the directory called newdirectory from your working directory: rmdir newdirectory (since it is empty), if it contains files then rm -r newdirectory (-r means recursive)
+
+Create a directory called temp under your home directory: mkdir ~/tmp (temp already exists under home directory)
+
+Remove the directory called newdir under your home directory and verify the above with the help of the directory listing command: rmdir newdir
+
+Create another directory directorynew under the tmp directory: mkdir ~/tmp/directorynew
+
+Change the directory to your home directory: cd ~ (~ represents home directory)
+
+From your home directory, change the directory to directorynew using relative and absolute path: cd home/shubham/tmp/directorynew (absolute path)
+cd tmp (to go back cd ..) (relative path)
+
+Remove the directory called C_prog, which is in your home directory: rmdir C_prog
+
+Change to the directory /etc and display the files present in it: cd /etc and then ls (ls -l for long listing format)
+
+List the names of all the files that begin with a dot in the /usr/bin directory: cd /usr/bin then ls -d .* (-d shows only directories and not its contents and * is wildcard character)
+
+Create a file first.unix with the following contents:  echo "Hi! Good Morning everybody. Welcome to first exercise on UNIX. Hope you enjoy doing the assignments." > first.unix (> is used to redirect output to a file, use cat first.unix to see contents of the file)
+
+Copy the file first.unix in your home directory to first.unics: touch first.unics (created an empty file using touch), cp first.unix first.unics
+
+List the contents of first.unix and first.unics with a single command: cat first.unix first.unics (cat file1 file2)
+
+Create a new directory under the temp directory: cd temp, mkdir subdirtemp
+
+From your home directory, copy all the files to the directory created under the temp sub directory: cd subdirtemp, cp ~/first.unix ~/temp/subdirtemp, cp ~/first.unics ~/temp/subdirtemp/
+
+Move the file first.unix to the directory temp as second.unix: mv ~/first.unix ~/temp/second.unix (mv is for move)
+
+Remove the file called first.unics from the home directory: rm -r first.unics (-r for recursive since first.unics contains some content)
+
+Change your directory to temp and issue the command rm*: rm* is used to remove all files in a current directory
+
+Move all files whose names end with a, c and o to the HOME directory: mv *.a*.c*.o ~/
+
+Copy all files that end with a ‘UNIX’ to the temp directory: cp *.unix ~/temp/
+
+Issuing a single command, remove all the files from the directory temp and the directory itself: rm -rf temp (-r to delete all contents, -f to skip confirmation and force deletion)
+
+Use the cat command to create a file friends, with the following data: cat > friends.txt enter_data (Ctrl+D to save the data after entered and exit)
+
+Display contents of the file friends: cat friends.txt
+
+Copy contents of friends to newfriend without using the cp command: cat friends.txt > newfriends (cat source_file > destination_file)
+
+Display contents of the file friends and newfriends in a single command: cat friends.txt newfriends
+
+Find all users currently working on the system and store the output in a file named as users: who > users (who checks users who are currently logged in, > redirects the output to users file)
+
+Append contents of friends file to the file, users: cat friends.txt >> users (>> redirects and appends the output to destination file)
+
+Display current system date and time and record your observations. How is the time displayed?: date (date "+%H:%M;%S" for time only)
+
+Display calendar for the month and year of your birth: cal 5 2002 (cal <month> <year>)
+
+date “+%m”: displays minutes, date “+%D” : displays date, date “+%r”: displays time
+
+Redirect the content of the help document ls, into a file called as lsdoc: ls | tee lsdoc (| is pipe that takes output of command to the left and passes it as input to command on the right) (tee command is used to send output to screen as well as the file)
+
+Display the content of the lsdoc page wise: less lesdoc (less is used to view file page by page in user friendly way)
+
+Create a file data.txt using input redirection: echo "This is the file created using input redirection" | tee data.txt
+
+Display data.txt: cat data.txt
+
+Remove the file data.txt: rm data.txt (-f can be used to force,-i for prompt before deletion)
+
+Use error redirection to display data.txt, if any error stores it in errorlog.txt: rm data.txt 2>&1 (2 is the standard error stream stderr, 1 is the standard output stream stdout and 2>&1 redirects error stream to output stream)
+
+Display errorlog file: cat errorlog.txt
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ 
+               
