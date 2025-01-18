@@ -1,0 +1,37 @@
+Create a file using vi and enter the following text: vi network.txt (Press i to enter INSERT mode)
+
+Change the word “Netware” in the second line to “Novell Netware”: vi network.txt, :%s/Netware/Novell Netware/
+
+Insert the text “(such as hard disks and printers)” after “share resources” in the first line: vi network.txt (go to first line by gg and enter INSERT mode by pressing i. Then use arrow keys to navigate to desired location and add "(such as hard disks and printers)". Exit INSERT mode by Esc and save and exit using :wq)
+
+Append the following text to the file: vi network.txt, Append “Managing NDS is a fundamental administrator role because NDS provides a single point for accessing and managing most network resources.” by pressing A and save and exit using :wq
+
+We have  created a file errorlog.txt. Display it using cat command using command completion: cat network.txt 2> errorlog.txt (2> is used for error redirection), cat non_existent_file 2> errorlog.txt, cat errorlog.txt
+
+Display history of command used so far: history 
+
+Search ls command in history file: history | grep ls (grep ls filters only ls commands in history file)
+
+Repeat the last command: history | grep ls
+
+Execute 3 command from history file: vi network.txt, cat errorlog.txt, ls
+
+What are the different shells available: 
+1. Bash (Bourne Again Shell): Most common shell across linux, it is user friendly and supports command completion and command history.
+2. Zsh (Z Shell): Enhanced version of bash with some additional features like spelling correction, better auto completion and themes.
+3. Fish (Friendly Interactive Shell): User friendly shell with features like syntax highlighting and web based configuration interface.
+4. Sh (Bourne Shell): Sh is oldest shell and typically used for compatibility, it is minimalistic and very portable.
+5. Csh (C Shell): C shell has syntax that resembles C programming language, less powerful than bash.
+6. Dash (Debian Almquist Shell): Lightweight and fast shell, typically used in scripting.
+7. Ksh (Korn Shell): Ksh combines features from Bourne shell and C shell.
+8. BusyBox Shell: It is designed for environments with limited resources, and provides minimal unix utilities.
+9. Tcsh (TENEX C Shell): Enhanced version of Csh with modern features like advanced history mechanism and command line editing.
+10. Xonsh: Xonsh integrates python with shell scripting and allows python code alongside shell commands.
+
+
+
+
+
+
+
+
