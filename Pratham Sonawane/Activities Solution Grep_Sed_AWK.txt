@@ -1,0 +1,130 @@
+Pattern Matching using egrep
+----------------------------
+Create a file student.dat with following data
+
+name surname marks grade
+rameshchandra mane 79 A+
+suresh bahrti 88 A++
+rajat bhosle 25 C
+suraj pancholi 65 A
+manoj sharma 55 B
+rahul varma 87 A++
+manoj pandey 56 B
+suraj rajguru 45 B
+
+1. Display all names starting with s : egrep -i "^s" student.dat
+2. Display whose name ending with e or i : egrep 'e$|i$' student.dat
+3. Display who got 65 marks : egrep '\b65\b' student.dat
+4. Display data of records whose surname is Sharma is varma : egrep 'sharma|varma' student.dat
+5. Display who got grade A only : egrep ' A$' student.dat
+6. Display whose 3rd charcter of name is r : egrep '^..r' student.dat
+7. Display whose second character is a or r or t : egrep '^.[art]' student.dat
+8. Display names whose length is exactly 5 character :egrep '^..... ' student.dat
+9. Display names whose length is more than 6 character : egrep '^.{7,} ' student.dat
+10. Display name whose marks are ending with 6 : egrep '\b6$' student.dat
+11. Display grade with A+ only : egrep '\bA\+\b' student.dat
+
+Noninteractive Editing using sed
+---------------------------------
+
+1. Copy the file  /etc/syslog.conf to the current directory as syslog.conf. Insert blank line after every line in the file syslog.conf. : 
+cp /etc/syslog.conf ./syslog.cong
+sed G syslog.conf
+2. Remove the blank lines from the file syslog.conf : sed '/^$/d' syslog.conf
+3. Print the first 3 lines of the file syslog.conf : sed -n '1,3p' syslog.conf
+4. Print lines from 3rd to 5th from the file /etc/syslog.conf : sed -n '3,5p' /etc/syslog.conf
+5. Insert some spaces in the beginning(leading spaces) & end of each line(trailing spaces) manually using vi editor
+6. Through sed command remove the leading spaces & trailing spaces in the above file : 
+7. Substitute kern with kernel in the file syslog.conf & then substitute back to kern.: sed -i 's/kern/kernel/g' syslog.conf
+   sed -i 's/kernel/kern/g' syslog.conf
+
+8. Search for the lines containing the word kern & write those lines into a file kern.conf : grep 'kern' syslog.conf > kern.conf
+9. Print all the lines of the file syslog.conf except the 3rd line.: sed '3d' syslog.conf
+10. Delete each line that contains the pattern kern : sed '/kern/d' syslog.conf > syslog.conf
+
+Create a file “Employee.dat” with text as follows
+
+James 76382 ECAP Chennai
+John 34228 GRIT Hyderabad
+Peter 22321 GE Bangalore
+Albert 32342 GRIT Pune
+Mathew 23222 ECAP Mumbai
+Richard 23232 ACS Pune
+
+1. Write a sed command to print only the lines starting at line 2 and ending with the letters “Pune” : sed -n '2,/Pune/p' Employee.dat
+2. Write a sed command that will display the top 5 lines from the file : sed -n '1,5p' Employee.dat
+3. Write a sed command that will substitute the word “Chennai” for "Pune" used in all instance of the word : sed 's/Chennai/Pune/g' Employee.dat
+4. Write a sed command that will replace occurrence of the character e with the string UNIX in all lines. (Use –e option): sed 's/e/UNIX/g' Employee.dat
+5. Write a sed command to delete blank lines : sed '/^$/d' Employee.dat
+6. Write a sed command to delete lines from 3 to 5 : sed '3,5d' Employee.dat
+7. Create a new file “ECAP.dat which has only the lines that contain the word
+“ECAP” from Employee.dat : grep 'ECAP' Employee.dat > ECAP.dat
+
+
+
+Report Generation using awk
+---------------------------
+
+1. Consider the results are stored in following format:
+
+EmpID Name Subject Marks(/50)
+E001 Nilesh Unix 30
+E002 Nilesh DSA 20
+Like these you have 10 records ( 5 of DSA and 5 of Unix)
+Calculate the avg score secured in Unix and DSA and the first 2 topers in Unix and DSA each.
+
+2. Write a script to get the report of the users logged on to the System in
+the following formats. (Records should be sorted on logging time.)
+Header must include company name and Date
+Records in the format
+Username Logged-in-time Terminal
+Tailor should include total number of the users logged in.
+
+3. Consider a text file containing the records (colon separated fields) in the format:
+EmpName:EmpId:Subject:ObtMarks:TotMarks:Result
+Write a script to get the result of “UNIX” Subject in the format (Considering the data file has TotMarks=50 for UNIX)
+
+EmpName:ObtMark:MarksOutof35
+The header of the report must contain total marks and the tailor must
+specify the percentage result for that subject.
+Also generate another summary result containing total number of
+participants appeared, total number of participants passed, and Name of
+the participants ranked Ist IInd, IIIrd with their total score.
+
+4. Consider the Arizona roaster as an input data file for this exercise. Using
+any combination of the text-processing utilities listed below, write a oneline shell command that performs each of the following tasks
+(a) reports the number of players on the roster
+(b) displays the roster in order by jersey number
+(c) displays the roster in alphabetical order by surname
+(d) displays the heaviest five players
+(e) displays all players who attended Wisconsin
+
+The Roaster is given below:-
+JersyNo|Name,surname |linebackers|Weight | Date | Experience| Country
+20 | Anderson, Damien |RB 5'10" | 212 | 07/17/1979 | 3 |Northwestern
+30 | Ayanbadejo, Oba |FB 6'02" | 235 | 03/05/1975 | 5 |San Diego
+92 | Berry,Bert |DE6'03" | 250| 08/15/1975 | 7 |NotreDame
+81 | Boldin,Anquan |WR6'01" |215 | 10/03/1980 |2 | FloridaState
+91 | Bryant,Wendell |DT6'04" |303| 09/12/1980 | 3 | Wisconsin
+35 | Carter,Dyshod |DB5'10" |197 | 06/18/1978 |2 | Kansas State
+52 | Fisher,Levar |OLB6'01" |235 | 07/02/1979 |3| NorthCarolina
+11 | Fitzgerald,Larry |WR6'04" |229| 08/31/1983 |10 |Pittsburgh
+63 |Garcia,Frank |G6'02" | 302| 01/28/1972|10|Washington
+64 |Grace,Steven |C6'03" |295| 02/13/1979 | 3|Arizona
+84 |Hamilton,Lawrence |WR6'03" |205 |08/31/1980 |2|StephenF.Austin
+
+5. Create an awk program which will displays the total number of users in the system.
+6. Create an awk program which counts and at the end displays the following data: 
+	No. of Bash Shell users:
+	No. of Bourne Shell Users:
+7. Create an awk program which displays only user name and the corresponding user id as in the following Report Format :
+	User Name	User ID
+	root		0
+	daemon		1
+	---------------------
+	Total Number of users :
+8. Create an awk program which prints the alternate lines like 2nd , 4th , 6th etc... from the file /etc/group.
+9. Create an awk program which will display the file name and the size of the files in the current directory where the file size is more than 100 bytes
+10. Using awk, print the user id, login shell & home directory of the user root.
+11. Using awk print the user id, name & login shell of the system users [ System users are those whose uid is less than 500 ]
+12. Using awk print the file name, owner and size of all the files in the /etc directory
