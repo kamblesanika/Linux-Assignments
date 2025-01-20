@@ -1,0 +1,71 @@
+Using Pipes and Filters
+
+1. Redirect the content of the help document ls, into a file called as lsdoc: ls > lsdoc
+
+2. Display the content of the lsdoc page wise: cat lsdoc | less
+
+3. Display only the first 4 lines of the lsdoc file: cat lsdoc | head -n 4
+
+4. Display only the last 7 lines of the file lsdoc: cat lsdoc | tail -n 7 
+
+5. Remove the file lsdoc: rm lsdoc
+
+6. Display the lines starting with Ma, in the file friends: cat friends.txt | grep "^Ma"
+
+7. Display the lines starting with Ma, ending with i or ending with id, in the file friends: egrep "^Ma|i$|id$" friends.txt
+
+8. Print all the files and the directory files from the current directory across all the sub directories, along with its path: find
+
+9. Print only the Directory files: find -type d
+
+10. Display the files starting with chap, along with its path: find ~ -name "chap*"
+
+11. Sort the file friends in ascending order of names: sort friends.txt
+
+12. Display the contents of the file friends in uppercase letters: cat friends.txt | tr 'a-z' 'A-Z'
+
+13. Store the contents of your home directory in a file called dir: ls ~ > dir
+
+14. From the above file dir, display the file permissions and the name of the file only: cat dir | ls-l, ls -l | awk '{print $1,$9}' 
+
+15. From the same dir file, store only the file names in a file called files: cat dir | ls-l, ls -l | awk '{print $9}' > files
+
+16. From the same dir file, store only the permissions of files in a file called perms: cat dir | ls-l, ls -l | awk '{print $1}' > perms
+
+17. From the same dir file, store only the file sizes in a file called sizes: cat dir | ls -l, ls -l | awk '{print $5}' > sizes
+
+18. Display the file names, sizes and permissions from your directory in that order: ls -l | awk '{print $9,$5,$1}'
+
+19. Display the number of users working on the system: who | wc -l
+
+20. Find out the smallest file in your directory: ls -l | sort -k 5 -n | head -n 1
+
+21. Display the total number of lines present in the file friends: wc -l friends.txt
+
+22. Create the following fixed record format files (with “|” delimiter between fields) with the structure given below, and populate them with relevant data use these files to solve following questions. Find the record lengths of each file: wc -l emplist, wc -l deptlist, wc -l desiglist
+
+23. Display only the date of birth and salary of the last employee record: awk 'END {print $5,$6}' emplist
+
+24. Extract only employee names and designations. (Use   column   specifications). Save output as cfile1: awk '{print $2,$3,}' emplist > cfile1
+
+25. Extract Emp.id, dept, dob and salary. (Use field specifications). Save output as cfile2: awk '{print $1,$4,$5,$6}' emplist > cfile2
+
+26. Sort the emplist file in reverse order of Emp Names: sort -k2,2r emplist
+
+27. Sort the emplist file on the salary field, and store the result in file srtf: sort -t'|' -k6,6n emplist > srtf
+
+28. Sort the emplist file on designation followed by name: sort -t'|' -k3,3 -k2,2 emplist  
+
+29. Sort the emplist file on the year of birth: sort -t'|' -k5,5 emplist
+
+30. Find out the various designations in the employee file. Eliminate duplicate: cut -d'|' -f 3 emplist | sort | uniq
+
+
+
+
+
+
+ 
+   
+
+  
