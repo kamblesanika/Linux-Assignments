@@ -1,0 +1,53 @@
+[root@hostname01 ~]# groupadd HR
+[root@hostname01 ~]# usermod -aG HR aditya
+usermod: user 'aditya' does not exist
+[root@hostname01 ~]# useradd aditya
+[root@hostname01 ~]# useradd sahil
+[root@hostname01 ~]# useradd aniket
+[root@hostname01 ~]# useradd lalit
+[root@hostname01 ~]# useradd shubham
+[root@hostname01 ~]# usermod -aG HR aditya
+[root@hostname01 ~]# usermod -aG HR sahil
+[root@hostname01 ~]# usermod -aG HR aniket
+[root@hostname01 ~]# groupadd Account
+[root@hostname01 ~]# usermod -aG Account lalit
+[root@hostname01 ~]# usermod -aG Account shubham
+[root@hostname01 ~]# sudo groupadd Sales
+[root@hostname01 ~]# mkdir /HR
+[root@hostname01 ~]# chown root:HR /HR
+[root@hostname01 ~]# ls -ld /HR
+drwxr-xr-x. 2 root HR 6 Jan 21 20:12 /HR
+[root@hostname01 ~]# chmod u=rwx,g=rwx,o=t /HR
+[root@hostname01 ~]# ls -ld /HR
+drwxrwx--T. 2 root HR 6 Jan 21 20:12 /HR
+[root@hostname01 ~]# chmod u=rwx,g=rwx,s,t,o=rx /HR
+chmod: invalid mode: ‘u=rwx,g=rwx,s,t,o=rx’
+Try 'chmod --help' for more information.
+[root@hostname01 ~]# chmod u+rwx,g+rwx,o=,ug+s,+t /HR
+[root@hostname01 ~]# ls -ld /HR
+drwsrws--T. 2 root HR 6 Jan 21 20:12 /HR
+[root@hostname01 ~]# chmod u+rwx,g+rwx,o=,ug+s,+t /HR
+[root@hostname01 ~]# ls -ld /HR
+drwsrws--T. 2 root HR 6 Jan 21 20:12 /HR
+[root@hostname01 ~]# setfacl -m u:aniket:rw /HR
+[root@hostname01 ~]# setfacl -m u:shubham:r /HR
+[root@hostname01 ~]# setfacl -m u:lalit:r /HR
+[root@hostname01 ~]# setfacl -m g:Sales:r /HR
+[root@hostname01 ~]# getfac /HR
+bash: getfac: command not found...
+[root@hostname01 ~]# getfacl /HR
+getfacl: Removing leading '/' from absolute path names
+# file: HR
+# owner: root
+# group: HR
+# flags: sst
+user::rwx
+user:aniket:rw-
+user:lalit:r--
+user:shubham:r--
+group::rwx
+group:Sales:r--
+mask::rwx
+other::---
+
+[root@hostname01 ~]# history >                                                                          [root@hostname01 ~]# history >                                                                          [root@hostname01 ~]# history >   
