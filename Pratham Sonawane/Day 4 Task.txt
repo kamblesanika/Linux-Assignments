@@ -1,0 +1,114 @@
+[root@hostname01 ~]# groupadd hr
+[root@hostname01 ~]# usermod -aG hr aditya
+usermod: user 'aditya' does not exist
+[root@hostname01 ~]# useradd aditya
+[root@hostname01 ~]# useradd sahil
+[root@hostname01 ~]# useradd aniket
+[root@hostname01 ~]# usermod -aG hr aditya
+[root@hostname01 ~]# usermod -aG hr sahil
+[root@hostname01 ~]# usermod -aG hr aniket
+[root@hostname01 ~]# id aditya
+uid=1002(aditya) gid=1003(aditya) groups=1003(aditya),1002(hr)
+[root@hostname01 ~]# id sahil
+uid=1003(sahil) gid=1004(sahil) groups=1004(sahil),1002(hr)
+[root@hostname01 ~]# id aniket
+uid=1004(aniket) gid=1005(aniket) groups=1005(aniket),1002(hr)
+[root@hostname01 ~]# users
+admin admin
+[root@hostname01 ~]# mkdir /hr/files
+mkdir: cannot create directory ‘/hr/files’: No such file or directory
+[root@hostname01 ~]# mkdir /hr
+[root@hostname01 ~]# mkdir /hr/files
+[root@hostname01 ~]# chgrp hr /hr/files
+[root@hostname01 ~]# chmod 1770 /hr/files
+[root@hostname01 ~]# ls -ld /hr/files
+drwxrwx--T. 2 root hr 6 Jan 22 00:40 /hr/files
+[root@hostname01 ~]# setfacl -m u:aniket:rw /hr
+[root@hostname01 ~]# ls -ld
+dr-xr-x---. 14 root root 4096 Jan 22 00:14 .
+[root@hostname01 ~]# ls -ld /hr
+drwxrwxr-x+ 3 root root 19 Jan 22 00:40 /hr
+[root@hostname01 ~]# getfacl /hr
+getfacl: Removing leading '/' from absolute path names
+# file: hr
+# owner: root
+# group: root
+user::rwx
+user:aniket:rw-
+group::r-x
+mask::rwx
+other::r-x
+
+[root@hostname01 ~]# getfacl /hr/files
+getfacl: Removing leading '/' from absolute path names
+# file: hr/files
+# owner: root
+# group: hr
+# flags: --t
+user::rwx
+group::rwx
+other::---
+
+[root@hostname01 ~]# setfacl -m u:aditya:rwx /hr
+[root@hostname01 ~]# setfacl -m u:sahil:rwx /hr
+[root@hostname01 ~]# getfacl /hr/files
+getfacl: Removing leading '/' from absolute path names
+# file: hr/files
+# owner: root
+# group: hr
+# flags: --t
+user::rwx
+group::rwx
+other::---
+
+[root@hostname01 ~]# getfacl /hr
+getfacl: Removing leading '/' from absolute path names
+# file: hr
+# owner: root
+# group: root
+user::rwx
+user:aditya:rwx
+user:sahil:rwx
+user:aniket:rw-
+group::r-x
+mask::rwx
+other::r-x
+
+[root@hostname01 ~]# groupadd accounts
+[root@hostname01 ~]# useradd lalit
+[root@hostname01 ~]# useradd shubham
+[root@hostname01 ~]# usermod -aG accounts lalit
+[root@hostname01 ~]# usermod -aG accounts shubham
+[root@hostname01 ~]# setfacl -m u:lalit:r /accounts
+setfacl: /accounts: No such file or directory
+[root@hostname01 ~]# mkdir /accounts
+[root@hostname01 ~]# setfacl -m u:lalit:r /accounts
+[root@hostname01 ~]# setfacl -m u:shubham:r /accounts
+[root@hostname01 ~]# getfacl /accounts
+getfacl: Removing leading '/' from absolute path names
+# file: accounts
+# owner: root
+# group: root
+user::rwx
+user:lalit:r--
+user:shubham:r--
+group::r-x
+mask::r-x
+other::r-x
+
+[root@hostname01 ~]# groupadd sales
+[root@hostname01 ~]# mkdir /sales
+[root@hostname01 ~]# setfacl -d -m g:sales:r /sales
+[root@hostname01 ~]# getfacl /sales
+getfacl: Removing leading '/' from absolute path names
+# file: sales
+# owner: root
+# group: root
+user::rwx
+group::r-x
+other::r-x
+default:user::rwx
+default:group::r-x
+default:group:sales:r--
+default:mask::r-x
+default:other::r-x
