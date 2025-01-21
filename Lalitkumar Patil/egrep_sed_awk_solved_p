@@ -1,0 +1,199 @@
+Pattern Matching using egrep
+----------------------------
+Create a file student.dat with following data
+
+name surname marks grade
+rameshchandra mane 79 A+
+suresh bahrti 88 A++
+rajat bhosle 25 C
+suraj pancholi 65 A
+manoj sharma 55 B
+rahul varma 87 A++
+manoj pandey 56 B
+suraj rajguru 45 B
+
+1. Display all names starting with s
+egrep '^s' student.dat
+
+2. Display whose name ending with e or i
+egrep "*[ei]\b" ./student.dat
+rameshchandra mane 79 A+ 
+suresh bharti 88 A++
+rajat bhosle 25 C
+suraj pancholi 65 A
+
+
+3. Display who got 65 marks
+egrep '\b65\b' student.dat
+suraj pancholi 65 A 
+
+4. Display data of records whose surname is Sharma is varma
+egrep 'sharma|verma' student.dat 
+manoj sharma 55 B
+
+5. Display who got grade A only
+egrep 'A ' student.dat
+suraj pancholi 65 A
+
+6. Display whose 3rd charcter of name is r
+egrep '^..r' student.dat
+suresh bahrti 88 A++ 
+suraj pancholi 65 A 
+suraj rajguru 45 B 
+
+7. Display whose second character is a or r or t
+egrep '^.[art]' student.dat
+name surname marks grade 
+rameshchandra mane 79 A+ 
+rajat bhosle 25 C 
+manoj sharma 55 B 
+rahul varma 87 A++ 
+manoj pandey 56 B 
+
+8. Display names whose length is exactly 5 character
+egrep '^.{5} ' student.dat
+rajat bhosle 25 C 
+suraj pancholi 65 A 
+manoj sharma 55 B 
+rahul varma 87 A++ 
+manoj pandey 56 B 
+suraj rajguru 45 B 
+
+9. Display names whose length is more than 6 character
+egrep '^.{5} ' student.dat
+rajat bhosle 25 C 
+suraj pancholi 65 A 
+manoj sharma 55 B 
+rahul varma 87 A++ 
+manoj pandey 56 B 
+suraj rajguru 45 B 
+
+10. Display name whose marks are ending with 6
+egrep '^[^ ]+ [^ ]+ [0-9]*6 ' student.dat 
+manoj pandey 56 B 
+
+11. Display grade with A+ only
+'A\+ ' student.dat
+rameshchandra mane 79 A+ 
+
+
+
+
+
+
+Noninteractive Editing using sed
+---------------------------------
+
+1. Copy the file  /etc/syslog.conf to the current directory as syslog.conf. Insert blank line after every line in the file syslog.conf.
+sed -i 'G' syslog.conf
+
+2. Remove the blank lines from the file syslog.conf
+sudo sed -i.bak /^$/d syslog.conf 
+
+3. Print the first 3 lines of the file syslog.conf
+sudo sed 5q syslog.conf 
+
+4. Print lines from 3rd to 5th from the file /etc/syslog.conf
+sudo sed -n '3,5p' syslog.conf 
+
+5. Insert some spaces in the beginning(leading spaces) & end of each line(trailing spaces) manually using vi editor
+
+6. Through sed command remove the leading spaces & trailing spaces in the above file
+
+7. Substitute kern with kernel in the file syslog.conf & then substitute back to kern.
+
+8. Search for the lines containing the word kern & write those lines into a file kern.conf
+
+9. Print all the lines of the file syslog.conf except the 3rd line.
+sed '3d' syslog.conf
+
+10. Delete each line that contains the pattern kern
+sed '/kern/d' syslog.conf
+
+
+
+Create a file “Employee.dat” with text as follows
+
+James 76382 ECAP Chennai
+John 34228 GRIT Hyderabad
+Peter 22321 GE Bangalore
+Albert 32342 GRIT Pune
+Mathew 23222 ECAP Mumbai
+Richard 23232 ACS Pune
+
+1. Write a sed command to print only the lines starting at line 2 and ending with the letters “Pune”
+sed -n '2,$ {/Pune$/p}' employee.dat 
+Albert 32342 GRIT Pune
+Richard 23232 ACS Pune
+
+
+2. Write a sed command that will display the top 5 lines from the file
+sed '5q' employee.dat 
+James 76382 ECAP Chennai
+John 34228 GRIT Hyderabad
+Peter 22321 GE Bangalore
+Albert 32342 GRIT Pune
+Mathew 23222 ECAP Mumbai
+
+
+3. Write a sed command that will substitute the word “Chennai” for "Pune" used in all instance of the word
+sed 's/Pune/Chennai/g' employee.dat 
+James 76382 ECAP Chennai
+John 34228 GRIT Hyderabad
+Peter 22321 GE Bangalore
+Albert 32342 GRIT Chennai
+Mathew 23222 ECAP Mumbai
+Richard 23232 ACS Chennai
+
+
+Report Generation using awk
+---------------------------
+
+
+1. Consider the results are stored in following format:
+
+EmpID Name Subject Marks(/50)
+E001 Nilesh Unix 30
+E002 Nilesh DSA 20
+Like these you have 10 records ( 5 of DSA and 5 of Unix)
+Calculate the avg score secured in Unix and DSA and the first 2 topers in Unix and DSA each.
+
+2. Write a script to get the report of the users logged on to the System in
+the following formats. (Records should be sorted on logging time.)
+Header must include company name and Date
+Records in the format
+Username Logged-in-time Terminal
+Tailor should include total number of the users logged in.
+
+3. Consider a text file containing the records (colon separated fields) in the format:
+EmpName:EmpId:Subject:ObtMarks:TotMarks:Result
+Write a script to get the result of “UNIX” Subject in the format (Considering the data file has TotMarks=50 for UNIX)
+
+EmpName:ObtMark:MarksOutof35
+The header of the report must contain total marks and the tailor must
+specify the percentage result for that subject.
+Also generate another summary result containing total number of
+participants appeared, total number of participants passed, and Name of
+the participants ranked Ist IInd, IIIrd with their total score.
+
+4. Consider the Arizona roaster as an input data file for this exercise. Using
+any combination of the text-processing utilities listed below, write a oneline shell command that performs each of the following tasks
+(a) reports the number of players on the roster
+(b) displays the roster in order by jersey number
+(c) displays the roster in alphabetical order by surname
+(d) displays the heaviest five players
+(e) displays all players who attended Wisconsin
+
+The Roaster is given below:-
+JersyNo|Name,surname |linebackers|Weight | Date | Experience| Country
+20 | Anderson, Damien |RB 5'10" | 212 | 07/17/1979 | 3 |Northwestern
+30 | Ayanbadejo, Oba |FB 6'02" | 235 | 03/05/1975 | 5 |San Diego
+92 | Berry,Bert |DE6'03" | 250| 08/15/1975 | 7 |NotreDame
+81 | Boldin,Anquan |WR6'01" |215 | 10/03/1980 |2 | FloridaState
+91 | Bryant,Wendell |DT6'04" |303| 09/12/1980 | 3 | Wisconsin
+35 | Carter,Dyshod |DB5'10" |197 | 06/18/1978 |2 | Kansas State
+52 | Fisher,Levar |OLB6'01" |235 | 07/02/1979 |3| NorthCarolina
+11 | Fitzgerald,Larry |WR6'04" |229| 08/31/1983 |10 |Pittsburgh
+63 |Garcia,Frank |G6'02" | 302| 01/28/1972|10|Washington
+64 |Grace,Steven |C6'03" |295| 02/13/1979 | 3|Arizona
+84 |Hamilton,Lawrence |WR6'03" |205 |08/31/1980 |2|StephenF.Austin
