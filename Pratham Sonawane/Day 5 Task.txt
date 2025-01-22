@@ -291,3 +291,125 @@ tmpfs               tmpfs     1.2G  9.7M  1.2G   1% /run
 tmpfs               tmpfs     591M  100K  591M   1% /run/user/1000
 /dev/sr0            iso9660   8.7G  8.7G     0 100% /run/media/user1/CentOS-Stream-9-BaseOS-x86_64
 /dev/nvme0n2p1      xfs       495M   29M  466M   6% /unitfile
+
+--------------------------------------------------------------------------------------------------------------------------
+
+2. Next 1.5 G of the device to be used as swap to increase the size of swap by 1.5 G
+
+[root@vci ~]# fdisk /dev/nvme0n2
+
+Welcome to fdisk (util-linux 2.37.4).
+Changes will remain in memory only, until you decide to write them.
+Be careful before using the write command.
+
+This disk is currently in use - repartitioning is probably a bad idea.
+It's recommended to umount all file systems, and swapoff all swap
+partitions on this disk.
+
+
+Command (m for help): m
+
+Help:
+
+  DOS (MBR)
+   a   toggle a bootable flag
+   b   edit nested BSD disklabel
+   c   toggle the dos compatibility flag
+
+  Generic
+   d   delete a partition
+   F   list free unpartitioned space
+   l   list known partition types
+   n   add a new partition
+   p   print the partition table
+   t   change a partition type
+   v   verify the partition table
+   i   print information about a partition
+
+  Misc
+   m   print this menu
+   u   change display/entry units
+   x   extra functionality (experts only)
+
+  Script
+   I   load disk layout from sfdisk script file
+   O   dump disk layout to sfdisk script file
+
+  Save & Exit
+   w   write table to disk and exit
+   q   quit without saving changes
+
+  Create a new label
+   g   create a new empty GPT partition table
+   G   create a new empty SGI (IRIX) partition table
+   o   create a new empty DOS partition table
+   s   create a new empty Sun partition table
+
+
+Command (m for help): n
+Partition type
+   p   primary (1 primary, 0 extended, 3 free)
+   e   extended (container for logical partitions)
+Select (default p): p
+Partition number (2-4, default 2): 2
+First sector (1026048-4194303, default 1026048): 
+Last sector, +/-sectors or +/-size{K,M,G,T,P} (1026048-4194303, default 4194303): +1.5G
+
+Created a new partition 2 of type 'Linux' and of size 1.5 GiB.
+
+Command (m for help): w
+The partition table has been altered.
+Syncing disks.
+
+[root@vci ~]# df -Th
+Filesystem          Type      Size  Used Avail Use% Mounted on
+devtmpfs            devtmpfs  4.0M     0  4.0M   0% /dev
+tmpfs               tmpfs     2.9G     0  2.9G   0% /dev/shm
+tmpfs               tmpfs     1.2G  9.7M  1.2G   1% /run
+/dev/mapper/cs-root xfs        17G  6.8G   11G  40% /
+/dev/nvme0n1p1      xfs      1014M  253M  762M  25% /boot
+tmpfs               tmpfs     591M  100K  591M   1% /run/user/1000
+/dev/sr0            iso9660   8.7G  8.7G     0 100% /run/media/user1/CentOS-Stream-9-BaseOS-x86_64
+/dev/nvme0n2p1      xfs       495M   29M  466M   6% /unitfile
+[root@vci ~]# lsblk
+NAME        MAJ:MIN RM  SIZE RO TYPE MOUNTPOINTS
+sr0          11:0    1  8.7G  0 rom  /run/media/user1/CentOS-Stream-9-BaseOS-x86_64
+nvme0n1     259:0    0   20G  0 disk 
+├─nvme0n1p1 259:1    0    1G  0 part /boot
+└─nvme0n1p2 259:2    0   19G  0 part 
+  ├─cs-root 253:0    0   17G  0 lvm  /
+  └─cs-swap 253:1    0    2G  0 lvm  [SWAP]
+nvme0n2     259:3    0    2G  0 disk 
+├─nvme0n2p1 259:4    0  500M  0 part /unitfile
+└─nvme0n2p2 259:5    0  1.5G  0 part 
+[root@vci ~]# partprobe /dev/nvme0n2
+[root@vci ~]# free -h
+               total        used        free      shared  buff/cache   available
+Mem:           5.8Gi       1.5Gi       3.9Gi        22Mi       698Mi       4.3Gi
+Swap:          2.0Gi          0B       2.0Gi
+[root@vci ~]# mkswap /dev/nvme0n2p2
+Setting up swapspace version 1, size = 1.5 GiB (1610608640 bytes)
+no label, UUID=7bdaefff-7ff3-4cd3-b760-0fdfb338aa8b
+[root@vci ~]# vim /etc/fstab
+[root@vci ~]# vim /etc/fstab
+[root@vci ~]# system daemon-reload
+bash: system: command not found...
+[root@vci ~]# systemctl daemon-reload
+[root@vci ~]# swapon -a
+[root@vci ~]# swapon -s
+Filename				Type		Size		Used		Priority
+/dev/dm-1                               partition	2097148		0		-2
+/dev/nvme0n2p2                          partition	1572860		0		-3
+[root@vci ~]# lsblk
+NAME        MAJ:MIN RM  SIZE RO TYPE MOUNTPOINTS
+sr0          11:0    1  8.7G  0 rom  /run/media/user1/CentOS-Stream-9-BaseOS-x86_64
+nvme0n1     259:0    0   20G  0 disk 
+├─nvme0n1p1 259:1    0    1G  0 part /boot
+└─nvme0n1p2 259:2    0   19G  0 part 
+  ├─cs-root 253:0    0   17G  0 lvm  /
+  └─cs-swap 253:1    0    2G  0 lvm  [SWAP]
+nvme0n2     259:3    0    2G  0 disk 
+├─nvme0n2p1 259:4    0  500M  0 part /unitfile
+└─nvme0n2p2 259:5    0  1.5G  0 part [SWAP]
+[root@vci ~]# 
+
