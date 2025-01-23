@@ -1,0 +1,63 @@
+Pattern Matching using egrep
+----------------------------
+
+1. Display all names starting with s : egrep -i "^s" student.dat
+
+2. Display whose name ending with e or i : egrep 'e$|i$' student.dat
+
+3. Display who got 65 marks : egrep '\b65\b' student.dat
+
+4. Display data of records whose surname is Sharma is varma : egrep 'sharma|varma' student.dat
+
+5. Display who got grade A only : egrep ' A$' student.dat
+
+6. Display whose 3rd charcter of name is r : egrep '^..r' student.dat
+
+7. Display whose second character is a or r or t : egrep '^.[art]' student.dat
+
+8. Display names whose length is exactly 5 character :egrep '^..... ' student.dat
+
+9. Display names whose length is more than 6 character : egrep '^.{7,} ' student.dat
+
+10. Display name whose marks are ending with 6 : egrep '\b6$' student.dat
+
+11. Display grade with A+ only : egrep '\bA\+\b' student.dat
+
+
+Noninteractive Editing using sed
+---------------------------------
+
+1. Copy the file  /etc/syslog.conf to the current directory as syslog.conf. Insert blank line after every line in the file syslog.conf. : cp /etc/syslog.conf ./syslog.cong sed G syslog.conf
+
+2. Remove the blank lines from the file syslog.conf : sed '/^$/d' syslog.conf
+
+3. Print the first 3 lines of the file syslog.conf : sed -n '1,3p' syslog.conf
+
+4. Print lines from 3rd to 5th from the file /etc/syslog.conf : sed -n '3,5p' /etc/syslog.conf
+
+5. Substitute kern with kernel in the file syslog.conf & then substitute back to kern.: sed -i 's/kern/kernel/g' syslog.conf
+   sed -i 's/kernel/kern/g' syslog.conf
+
+6. Search for the lines containing the word kern & write those lines into a file kern.conf : grep 'kern' syslog.conf > kern.conf
+
+7. Print all the lines of the file syslog.conf except the 3rd line.: sed '3d' syslog.conf
+
+8. Delete each line that contains the pattern kern : sed '/kern/d' syslog.conf > syslog.conf
+
+
+
+1. Write a sed command to print only the lines starting at line 2 and ending with the letters “Pune” : sed -n '2,/Pune/p' Employee.dat
+
+2. Write a sed command that will display the top 5 lines from the file : sed -n '1,5p' Employee.dat
+
+3. Write a sed command that will substitute the word “Chennai” for "Pune" used in all instance of the word : sed 's/Chennai/Pune/g' Employee.dat
+
+4. Write a sed command that will replace occurrence of the character e with the string UNIX in all lines. (Use –e option): sed 's/e/UNIX/g' Employee.dat
+
+5. Write a sed command to delete blank lines : sed '/^$/d' Employee.dat
+
+6. Write a sed command to delete lines from 3 to 5 : sed '3,5d' Employee.dat
+
+7. Create a new file “ECAP.dat which has only the lines that contain the word “ECAP” from Employee.dat : grep 'ECAP' Employee.dat > ECAP.dat
+
+
