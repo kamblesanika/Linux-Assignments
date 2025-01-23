@@ -1,0 +1,846 @@
+[user1@vci ~]$ yum repolist
+repo id                       repo name
+appstream                     CentOS Stream 9 - AppStream
+baseos                        CentOS Stream 9 - BaseOS
+extras-common                 CentOS Stream 9 - Extras packages
+[user1@vci ~]$ yum
+usage: yum [options] COMMAND
+
+List of Main Commands:
+
+alias                     List or create command aliases
+autoremove                remove all unneeded packages that were originally installed as dependencies
+check                     check for problems in the packagedb
+check-update              check for available package upgrades
+clean                     remove cached data
+deplist                   [deprecated, use repoquery --deplist] List package's dependencies and what packages provide them
+distro-sync               synchronize installed packages to the latest available versions
+downgrade                 Downgrade a package
+group                     display, or use, the groups information
+help                      display a helpful usage message
+history                   display, or use, the transaction history
+info                      display details about a package or group of packages
+install                   install a package or packages on your system
+list                      list a package or groups of packages
+makecache                 generate the metadata cache
+mark                      mark or unmark installed packages as installed by user.
+module                    Interact with Modules.
+provides                  find what package provides the given value
+reinstall                 reinstall a package
+remove                    remove a package or packages from your system
+repolist                  display the configured software repositories
+repoquery                 search for packages matching keyword
+repository-packages       run commands on top of all packages in given repository
+search                    search package details for the given string
+shell                     run an interactive YUM shell
+swap                      run an interactive YUM mod for remove and install one spec
+updateinfo                display advisories about packages
+upgrade                   upgrade a package or packages on your system
+upgrade-minimal           upgrade, but only 'newest' package match which fixes a problem that affects your system
+
+List of Plugin Commands:
+
+builddep                  Install build dependencies for package or spec file
+changelog                 Show changelog data of packages
+config-manager            manage yum configuration options and repositories
+copr                      Interact with Copr repositories.
+debug-dump                dump information about installed rpm packages to file
+debug-restore             restore packages recorded in debug-dump file
+debuginfo-install         install debuginfo packages
+download                  Download package to current directory
+groups-manager            create and edit groups metadata file
+kpatch                    Toggles automatic installation of kpatch-patch packages
+needs-restarting          determine updated binaries that need restarting
+playground                Interact with Playground repository.
+repoclosure               Display a list of unresolved dependencies for repositories
+repodiff                  List differences between two sets of repositories
+repograph                 Output a full package dependency graph in dot format
+repomanage                Manage a directory of rpm packages
+reposync                  download all packages from remote repo
+
+General YUM options:
+  -c [config file], --config [config file]
+                        config file location
+  -q, --quiet           quiet operation
+  -v, --verbose         verbose operation
+  --version             show YUM version and exit
+  --installroot [path]  set install root
+  --nodocs              do not install documentations
+  --noplugins           disable all plugins
+  --enableplugin [plugin]
+                        enable plugins by name
+  --disableplugin [plugin]
+                        disable plugins by name
+  --releasever RELEASEVER
+                        override the value of $releasever in config and repo
+                        files
+  --setopt SETOPTS      set arbitrary config and repo options
+  --skip-broken         resolve depsolve problems by skipping packages
+  -h, --help, --help-cmd
+                        show command help
+  --allowerasing        allow erasing of installed packages to resolve
+                        dependencies
+  -b, --best            try the best available package versions in
+                        transactions.
+  --nobest              do not limit the transaction to the best candidate
+  -C, --cacheonly       run entirely from system cache, don't update cache
+  -R [minutes], --randomwait [minutes]
+                        maximum command wait time
+  -d [debug level], --debuglevel [debug level]
+                        debugging output level
+  --debugsolver         dumps detailed solving results into files
+  --showduplicates      show duplicates, in repos, in list/search commands
+  -e ERRORLEVEL, --errorlevel ERRORLEVEL
+                        error output level
+  --obsoletes           enables yum's obsoletes processing logic for upgrade
+                        or display capabilities that the package obsoletes for
+                        info, list and repoquery
+  --rpmverbosity [debug level name]
+                        debugging output level for rpm
+  -y, --assumeyes       automatically answer yes for all questions
+  --assumeno            automatically answer no for all questions
+  --enablerepo [repo]   Temporarily enable repositories for the purpose of the
+                        current dnf command. Accepts an id, a comma-separated
+                        list of ids, or a glob of ids. This option can be
+                        specified multiple times.
+  --disablerepo [repo]  Temporarily disable active repositories for the
+                        purpose of the current dnf command. Accepts an id, a
+                        comma-separated list of ids, or a glob of ids. This
+                        option can be specified multiple times, but is
+                        mutually exclusive with `--repo`.
+  --repo [repo], --repoid [repo]
+                        enable just specific repositories by an id or a glob,
+                        can be specified multiple times
+  --enable              enable repos with config-manager command
+                        (automatically saves)
+  --disable             disable repos with config-manager command
+                        (automatically saves)
+  -x [package], --exclude [package], --excludepkgs [package]
+                        exclude packages by name or glob
+  --disableexcludes [repo], --disableexcludepkgs [repo]
+                        disable excludepkgs
+  --repofrompath [repo,path]
+                        label and path to an additional repository to use
+                        (same path as in a baseurl), can be specified multiple
+                        times.
+  --noautoremove        disable removal of dependencies that are no longer
+                        used
+  --nogpgcheck          disable gpg signature checking (if RPM policy allows)
+  --color COLOR         control whether color is used
+  --refresh             set metadata as expired before running the command
+  -4                    resolve to IPv4 addresses only
+  -6                    resolve to IPv6 addresses only
+  --destdir DESTDIR, --downloaddir DESTDIR
+                        set directory to copy packages to
+  --downloadonly        only download packages
+  --comment COMMENT     add a comment to transaction
+  --bugfix              Include bugfix relevant packages, in updates
+  --enhancement         Include enhancement relevant packages, in updates
+  --newpackage          Include newpackage relevant packages, in updates
+  --security            Include security relevant packages, in updates
+  --advisory ADVISORY, --advisories ADVISORY
+                        Include packages needed to fix the given advisory, in
+                        updates
+  --bz BUGZILLA, --bzs BUGZILLA
+                        Include packages needed to fix the given BZ, in
+                        updates
+  --cve CVES, --cves CVES
+                        Include packages needed to fix the given CVE, in
+                        updates
+  --sec-severity {Critical,Important,Moderate,Low}, --secseverity {Critical,Important,Moderate,Low}
+                        Include security relevant packages matching the
+                        severity, in updates
+  --forcearch ARCH      Force the use of an architecture
+[user1@vci ~]$ yum repolist all
+repo id                    repo name                                    status
+appstream                  CentOS Stream 9 - AppStream                  enabled
+appstream-debuginfo        CentOS Stream 9 - AppStream - Debug          disabled
+appstream-source           CentOS Stream 9 - AppStream - Source         disabled
+baseos                     CentOS Stream 9 - BaseOS                     enabled
+baseos-debuginfo           CentOS Stream 9 - BaseOS - Debug             disabled
+baseos-source              CentOS Stream 9 - BaseOS - Source            disabled
+crb                        CentOS Stream 9 - CRB                        disabled
+crb-debuginfo              CentOS Stream 9 - CRB - Debug                disabled
+crb-source                 CentOS Stream 9 - CRB - Source               disabled
+extras-common              CentOS Stream 9 - Extras packages            enabled
+extras-common-source       CentOS Stream 9 - Extras packages - Source   disabled
+highavailability           CentOS Stream 9 - HighAvailability           disabled
+highavailability-debuginfo CentOS Stream 9 - HighAvailability - Debug   disabled
+highavailability-source    CentOS Stream 9 - HighAvailability - Source  disabled
+nfv                        CentOS Stream 9 - NFV                        disabled
+nfv-debuginfo              CentOS Stream 9 - NFV - Debug                disabled
+nfv-source                 CentOS Stream 9 - NFV - Source               disabled
+resilientstorage           CentOS Stream 9 - ResilientStorage           disabled
+resilientstorage-debuginfo CentOS Stream 9 - ResilientStorage - Debug   disabled
+resilientstorage-source    CentOS Stream 9 - ResilientStorage - Source  disabled
+rt                         CentOS Stream 9 - RT                         disabled
+rt-debuginfo               CentOS Stream 9 - RT - Debug                 disabled
+rt-source                  CentOS Stream 9 - RT - Source                disabled
+[user1@vci ~]$ yum repolist all | grep AppStream
+appstream                  CentOS Stream 9 - AppStream                  enabled
+appstream-debuginfo        CentOS Stream 9 - AppStream - Debug          disabled
+appstream-source           CentOS Stream 9 - AppStream - Source         disabled
+[user1@vci ~]$ yum repolist all | grep BAseOS
+[user1@vci ~]$ yum repolist all | grep BaseOS
+baseos                     CentOS Stream 9 - BaseOS                     enabled
+baseos-debuginfo           CentOS Stream 9 - BaseOS - Debug             disabled
+baseos-source              CentOS Stream 9 - BaseOS - Source            disabled
+[user1@vci ~]$ yum search httpd
+CentOS Stream 9 - BaseOS                        2.2 MB/s | 8.4 MB     00:03    
+CentOS Stream 9 - AppStream                                              2.3 MB/s |  21 MB     00:09    
+CentOS Stream 9 - Extras packages                                        5.5 kB/s |  20 kB     00:03    
+Last metadata expiration check: 0:00:01 ago on Thu 23 Jan 2025 10:11:47 PM IST.
+====================================== Name Exactly Matched: httpd ======================================
+httpd.x86_64 : Apache HTTP Server
+===================================== Name & Summary Matched: httpd =====================================
+centos-logos-httpd.noarch : CentOS-related icons and pictures used by httpd
+httpd-core.x86_64 : httpd minimal core
+keycloak-httpd-client-install.noarch : Tools to configure Apache HTTPD as Keycloak client
+python3-keycloak-httpd-client-install.noarch : Tools to configure Apache HTTPD as Keycloak client
+========================================== Name Matched: httpd ==========================================
+httpd-devel.x86_64 : Development interfaces for the Apache HTTP Server
+httpd-filesystem.noarch : The basic directory layout for the Apache HTTP Server
+httpd-manual.noarch : Documentation for the Apache HTTP Server
+httpd-tools.x86_64 : Tools for use with the Apache HTTP Server
+libmicrohttpd.i686 : Lightweight library for embedding a webserver in applications
+libmicrohttpd.x86_64 : Lightweight library for embedding a webserver in applications
+======================================== Summary Matched: httpd =========================================
+mod_auth_mellon.x86_64 : A SAML 2.0 authentication module for the Apache Httpd Server
+mod_dav_svn.x86_64 : Apache httpd module for Subversion server
+mod_proxy_cluster.x86_64 : JBoss mod_proxy_cluster for Apache httpd
+[user1@vci ~]$ yum info httpd
+Last metadata expiration check: 0:00:20 ago on Thu 23 Jan 2025 10:11:47 PM IST.
+Available Packages
+Name         : httpd
+Version      : 2.4.62
+Release      : 1.el9
+Architecture : x86_64
+Size         : 47 k
+Source       : httpd-2.4.62-1.el9.src.rpm
+Repository   : appstream
+Summary      : Apache HTTP Server
+URL          : https://httpd.apache.org/
+License      : ASL 2.0
+Description  : The Apache HTTP Server is a powerful, efficient, and extensible
+             : web server.
+
+[user1@vci ~]$ yum list installed | grep postfix
+[user1@vci ~]$ cat /etc/shells
+/bin/sh
+/bin/bash
+/usr/bin/sh
+/usr/bin/bash
+[user1@vci ~]$ yum install zsh -y
+Error: This command has to be run with superuser privileges (under the root user on most systems).
+[user1@vci ~]$ su -
+Password: 
+su: Authentication failure
+[user1@vci ~]$ su -
+Password: 
+[root@vci ~]# yum install zsh -y
+Waiting for process with pid 2951 to finish.
+Last metadata expiration check: 0:00:04 ago on Thu 23 Jan 2025 10:18:36 PM IST.
+Dependencies resolved.
+=========================================================================================================
+ Package              Architecture            Version                      Repository               Size
+=========================================================================================================
+Installing:
+ zsh                  x86_64                  5.8-9.el9                    baseos                  3.2 M
+
+Transaction Summary
+=========================================================================================================
+Install  1 Package
+
+Total download size: 3.2 M
+Installed size: 7.6 M
+Downloading Packages:
+zsh-5.8-9.el9.x86_64.rpm                                                 1.6 MB/s | 3.2 MB     00:02    
+---------------------------------------------------------------------------------------------------------
+Total                                                                    1.1 MB/s | 3.2 MB     00:02     
+CentOS Stream 9 - BaseOS                                                 603 kB/s | 1.6 kB     00:00    
+Importing GPG key 0x8483C65D:
+ Userid     : "CentOS (CentOS Official Signing Key) <security@centos.org>"
+ Fingerprint: 99DB 70FA E1D7 CE22 7FB6 4882 05B5 55B3 8483 C65D
+ From       : /etc/pki/rpm-gpg/RPM-GPG-KEY-centosofficial
+Key imported successfully
+Running transaction check
+Transaction check succeeded.
+Running transaction test
+Transaction test succeeded.
+Running transaction
+  Preparing        :                                                                                 1/1 
+  Installing       : zsh-5.8-9.el9.x86_64                                                            1/1 
+  Running scriptlet: zsh-5.8-9.el9.x86_64                                                            1/1 
+  Verifying        : zsh-5.8-9.el9.x86_64                                                            1/1 
+
+Installed:
+  zsh-5.8-9.el9.x86_64                                                                                   
+
+Complete!
+[root@vci ~]# cat etc/shells
+cat: etc/shells: No such file or directory
+[root@vci ~]# cat /etc/shells
+/bin/sh
+/bin/bash
+/usr/bin/sh
+/usr/bin/bash
+/usr/bin/zsh
+/bin/zsh
+[root@vci ~]# yum remove zsh
+Dependencies resolved.
+=========================================================================================================
+ Package              Architecture            Version                     Repository                Size
+=========================================================================================================
+Removing:
+ zsh                  x86_64                  5.8-9.el9                   @baseos                  7.6 M
+
+Transaction Summary
+=========================================================================================================
+Remove  1 Package
+
+Freed space: 7.6 M
+Is this ok [y/N]: y
+Running transaction check
+Transaction check succeeded.
+Running transaction test
+Transaction test succeeded.
+Running transaction
+  Preparing        :                                                                                 1/1 
+  Erasing          : zsh-5.8-9.el9.x86_64                                                            1/1 
+  Running scriptlet: zsh-5.8-9.el9.x86_64                                                            1/1 
+  Verifying        : zsh-5.8-9.el9.x86_64                                                            1/1 
+
+Removed:
+  zsh-5.8-9.el9.x86_64                                                                                   
+
+Complete!
+[root@vci ~]# cat /etc/shells
+/bin/sh
+/bin/bash
+/usr/bin/sh
+/usr/bin/bash
+[root@vci ~]# yum groupinfo
+usage: yum group [-c [config file]] [-q] [-v] [--version] [--installroot [path]] [--nodocs]
+                 [--noplugins] [--enableplugin [plugin]] [--disableplugin [plugin]]
+                 [--releasever RELEASEVER] [--setopt SETOPTS] [--skip-broken] [-h] [--allowerasing]
+                 [-b | --nobest] [-C] [-R [minutes]] [-d [debug level]] [--debugsolver]
+                 [--showduplicates] [-e ERRORLEVEL] [--obsoletes] [--rpmverbosity [debug level name]]
+                 [-y] [--assumeno] [--enablerepo [repo]] [--disablerepo [repo] | --repo [repo]]
+                 [--enable | --disable] [-x [package]] [--disableexcludes [repo]]
+                 [--repofrompath [repo,path]] [--noautoremove] [--nogpgcheck] [--color COLOR]
+                 [--refresh] [-4] [-6] [--destdir DESTDIR] [--downloadonly] [--comment COMMENT]
+                 [--bugfix] [--enhancement] [--newpackage] [--security] [--advisory ADVISORY]
+                 [--bz BUGZILLA] [--cve CVES] [--sec-severity {Critical,Important,Moderate,Low}]
+                 [--forcearch ARCH] [--with-optional] [--hidden | --installed | --available | --ids]
+                 [COMMAND] [COMMAND_ARG ...]
+
+display, or use, the groups information
+
+General YUM options:
+  -c [config file], --config [config file]
+                        config file location
+  -q, --quiet           quiet operation
+  -v, --verbose         verbose operation
+  --version             show YUM version and exit
+  --installroot [path]  set install root
+  --nodocs              do not install documentations
+  --noplugins           disable all plugins
+  --enableplugin [plugin]
+                        enable plugins by name
+  --disableplugin [plugin]
+                        disable plugins by name
+  --releasever RELEASEVER
+                        override the value of $releasever in config and repo files
+  --setopt SETOPTS      set arbitrary config and repo options
+  --skip-broken         resolve depsolve problems by skipping packages
+  -h, --help, --help-cmd
+                        show command help
+  --allowerasing        allow erasing of installed packages to resolve dependencies
+  -b, --best            try the best available package versions in transactions.
+  --nobest              do not limit the transaction to the best candidate
+  -C, --cacheonly       run entirely from system cache, don't update cache
+  -R [minutes], --randomwait [minutes]
+                        maximum command wait time
+  -d [debug level], --debuglevel [debug level]
+                        debugging output level
+  --debugsolver         dumps detailed solving results into files
+  --showduplicates      show duplicates, in repos, in list/search commands
+  -e ERRORLEVEL, --errorlevel ERRORLEVEL
+                        error output level
+  --obsoletes           enables yum's obsoletes processing logic for upgrade or display capabilities
+                        that the package obsoletes for info, list and repoquery
+  --rpmverbosity [debug level name]
+                        debugging output level for rpm
+  -y, --assumeyes       automatically answer yes for all questions
+  --assumeno            automatically answer no for all questions
+  --enablerepo [repo]   Temporarily enable repositories for the purpose of the current dnf command.
+                        Accepts an id, a comma-separated list of ids, or a glob of ids. This option can
+                        be specified multiple times.
+  --disablerepo [repo]  Temporarily disable active repositories for the purpose of the current dnf
+                        command. Accepts an id, a comma-separated list of ids, or a glob of ids. This
+                        option can be specified multiple times, but is mutually exclusive with
+                        `--repo`.
+  --repo [repo], --repoid [repo]
+                        enable just specific repositories by an id or a glob, can be specified multiple
+                        times
+  --enable              enable repos with config-manager command (automatically saves)
+  --disable             disable repos with config-manager command (automatically saves)
+  -x [package], --exclude [package], --excludepkgs [package]
+                        exclude packages by name or glob
+  --disableexcludes [repo], --disableexcludepkgs [repo]
+                        disable excludepkgs
+  --repofrompath [repo,path]
+                        label and path to an additional repository to use (same path as in a baseurl),
+                        can be specified multiple times.
+  --noautoremove        disable removal of dependencies that are no longer used
+  --nogpgcheck          disable gpg signature checking (if RPM policy allows)
+  --color COLOR         control whether color is used
+  --refresh             set metadata as expired before running the command
+  -4                    resolve to IPv4 addresses only
+  -6                    resolve to IPv6 addresses only
+  --destdir DESTDIR, --downloaddir DESTDIR
+                        set directory to copy packages to
+  --downloadonly        only download packages
+  --comment COMMENT     add a comment to transaction
+  --bugfix              Include bugfix relevant packages, in updates
+  --enhancement         Include enhancement relevant packages, in updates
+  --newpackage          Include newpackage relevant packages, in updates
+  --security            Include security relevant packages, in updates
+  --advisory ADVISORY, --advisories ADVISORY
+                        Include packages needed to fix the given advisory, in updates
+  --bz BUGZILLA, --bzs BUGZILLA
+                        Include packages needed to fix the given BZ, in updates
+  --cve CVES, --cves CVES
+                        Include packages needed to fix the given CVE, in updates
+  --sec-severity {Critical,Important,Moderate,Low}, --secseverity {Critical,Important,Moderate,Low}
+                        Include security relevant packages matching the severity, in updates
+  --forcearch ARCH      Force the use of an architecture
+
+Group command-specific options:
+  --with-optional       include optional packages from group
+  --hidden              show also hidden groups
+  --installed           show only installed groups
+  --available           show only available groups
+  --ids                 show also ID of groups
+
+  COMMAND               available subcommands: summary (default), list, info, remove, install, upgrade,
+                        mark
+  COMMAND_ARG           argument for group subcommand
+[root@vci ~]# yum groupinfo "Headless Management"
+Last metadata expiration check: 0:04:31 ago on Thu 23 Jan 2025 10:18:36 PM IST.
+Group: Headless Management
+ Description: Tools for managing the system without an attached graphical console.
+ Mandatory Packages:
+   PackageKit
+   cockpit-bridge
+   cockpit-packagekit
+   cockpit-podman
+   cockpit-storaged
+   cockpit-system
+   cockpit-ws
+   openssh-server
+ Default Packages:
+   sscg
+[root@vci ~]# netstat -tul
+Active Internet connections (only servers)
+Proto Recv-Q Send-Q Local Address           Foreign Address         State      
+tcp        0      0 localhost:ipp           0.0.0.0:*               LISTEN     
+tcp        0      0 0.0.0.0:ssh             0.0.0.0:*               LISTEN     
+tcp6       0      0 localhost:ipp           [::]:*                  LISTEN     
+tcp6       0      0 [::]:ssh                [::]:*                  LISTEN     
+udp        0      0 localhost:323           0.0.0.0:*                          
+udp        0      0 0.0.0.0:mdns            0.0.0.0:*                          
+udp        0      0 0.0.0.0:36461           0.0.0.0:*                          
+udp6       0      0 localhost:323           [::]:*                             
+udp6       0      0 [::]:41877              [::]:*                             
+udp6       0      0 [::]:mdns               [::]:*                             
+[root@vci ~]# netstat -tul | awk '{print $1, $4}'
+Active (only
+Proto Local
+tcp localhost:ipp
+tcp 0.0.0.0:ssh
+tcp6 localhost:ipp
+tcp6 [::]:ssh
+udp localhost:323
+udp 0.0.0.0:mdns
+udp 0.0.0.0:36461
+udp6 localhost:323
+udp6 [::]:41877
+udp6 [::]:mdns
+[root@vci ~]# netstat -tulnp
+Active Internet connections (only servers)
+Proto Recv-Q Send-Q Local Address           Foreign Address         State       PID/Program name    
+tcp        0      0 127.0.0.1:631           0.0.0.0:*               LISTEN      1088/cupsd          
+tcp        0      0 0.0.0.0:22              0.0.0.0:*               LISTEN      1090/sshd: /usr/sbi 
+tcp6       0      0 ::1:631                 :::*                    LISTEN      1088/cupsd          
+tcp6       0      0 :::22                   :::*                    LISTEN      1090/sshd: /usr/sbi 
+udp        0      0 127.0.0.1:323           0.0.0.0:*                           895/chronyd         
+udp        0      0 0.0.0.0:5353            0.0.0.0:*                           872/avahi-daemon: r 
+udp        0      0 0.0.0.0:36461           0.0.0.0:*                           872/avahi-daemon: r 
+udp6       0      0 ::1:323                 :::*                                895/chronyd         
+udp6       0      0 :::41877                :::*                                872/avahi-daemon: r 
+udp6       0      0 :::5353                 :::*                                872/avahi-daemon: r 
+[root@vci ~]# netstat -tul | awk '{print $1, $7}'
+Active 
+Proto Address
+tcp 
+tcp 
+tcp6 
+tcp6 
+udp 
+udp 
+udp 
+udp6 
+udp6 
+udp6 
+[root@vci ~]# netstat -tulnp | awk '{print $1, $7}'
+Active 
+Proto Address
+tcp 1088/cupsd
+tcp 1090/sshd:
+tcp6 1088/cupsd
+tcp6 1090/sshd:
+udp 
+udp r
+udp r
+udp6 
+udp6 r
+udp6 r
+[root@vci ~]# firewall-cmd --list-services
+cockpit dhcpv6-client ssh
+[root@vci ~]# firewall-cmd --get-zones
+block dmz drop external home internal nm-shared public trusted work
+[root@vci ~]# firewall-cmd --get-default-zone
+public
+[root@vci ~]# firewall-cmd --set-default-zone=public
+Warning: ZONE_ALREADY_SET: public
+success
+[root@vci ~]# firewall-cmd --set-default-zone=dmz
+success
+[root@vci ~]# cd /etc/systemd/system
+[root@vci system]# cd /etc/ssh
+[root@vci ssh]# cd /etc/ssh/services
+-bash: cd: /etc/ssh/services: No such file or directory
+[root@vci ssh]# logout
+[user1@vci ~]$ su -
+Password: 
+[root@vci ~]# firewall-cmd --set-default-zone=public
+success
+[root@vci ~]# firewall-cmd --remove-service=ssh
+success
+[root@vci ~]# firewall-cmd --list-services
+cockpit dhcpv6-client
+[root@vci ~]# echo "This is a file that needs to be copied using scp." > CopyFile.txt
+[root@vci ~]# scp  /root/CopyFile.txt root@hostname01:/
+ssh: Could not resolve hostname hostname01: Name or service not known
+Connection closed
+[root@vci ~]# scp  /root/CopyFile.txt root@192.168.127.128:/
+The authenticity of host '192.168.127.128 (192.168.127.128)' can't be established.
+ED25519 key fingerprint is SHA256:GSSyyXDl5WTice/Z9kKjBdaqex8IfFGS/2Cw+vcb3h8.
+This key is not known by any other names
+Are you sure you want to continue connecting (yes/no/[fingerprint])? y                       
+Please type 'yes', 'no' or the fingerprint: yes
+Warning: Permanently added '192.168.127.128' (ED25519) to the list of known hosts.
+root@192.168.127.128's password: 
+CopyFile.txt                                                           100%   50    34.0KB/s   00:00    
+[root@vci ~]# man tar
+[root@vci ~]# /etc/ssh/sshd_config
+-bash: /etc/ssh/sshd_config: Permission denied
+[root@vci ~]# file /etc/ssh/sshd_config
+/etc/ssh/sshd_config: ASCII text
+[root@vci ~]# rpm -qa | grep ssh
+libssh-config-0.10.4-3.el9.noarch
+openssh-8.7p1-24.el9.x86_64
+libssh-0.10.4-3.el9.x86_64
+openssh-clients-8.7p1-24.el9.x86_64
+openssh-server-8.7p1-24.el9.x86_64
+[root@vci ~]# systemctl status sshd
+● sshd.service - OpenSSH server daemon
+     Loaded: loaded (/usr/lib/systemd/system/sshd.service; enabled; vendor preset: enabled)
+     Active: active (running) since Thu 2025-01-23 22:04:49 IST; 1h 14min ago
+       Docs: man:sshd(8)
+             man:sshd_config(5)
+   Main PID: 1090 (sshd)
+      Tasks: 1 (limit: 37369)
+     Memory: 2.5M
+        CPU: 165ms
+     CGroup: /system.slice/sshd.service
+             └─1090 "sshd: /usr/sbin/sshd -D [listener] 0 of 10-100 startups"
+
+Jan 23 22:04:47 vci.example.com systemd[1]: Starting OpenSSH server daemon...
+Jan 23 22:04:49 vci.example.com sshd[1090]: Server listening on 0.0.0.0 port 22.
+Jan 23 22:04:49 vci.example.com sshd[1090]: Server listening on :: port 22.
+Jan 23 22:04:49 vci.example.com systemd[1]: Started OpenSSH server daemon.
+[root@vci ~]# ssh pratham@192.168.127.128
+pratham@192.168.127.128's password: 
+Last login: Thu Jan 23 23:37:44 2025
+[pratham@hostname01 ~]$ mkdir my_projects
+[pratham@hostname01 ~]$ ls -d
+.
+[pratham@hostname01 ~]$ ls
+my_projects
+[pratham@hostname01 ~]$ su -
+Password: 
+[root@hostname01 ~]# ssh-keygen
+Generating public/private rsa key pair.
+Enter file in which to save the key (/root/.ssh/id_rsa): 
+Enter passphrase (empty for no passphrase): 
+Enter same passphrase again: 
+Your identification has been saved in /root/.ssh/id_rsa
+Your public key has been saved in /root/.ssh/id_rsa.pub
+The key fingerprint is:
+SHA256:rtNgJJUWDlvGnlddr3YV6qAnkoemBoigg3yv3x4n/14 root@hostname01
+The key's randomart image is:
++---[RSA 3072]----+
+|    ..+o   . ... |
+|     *=   . . ...|
+|.   .+.. . . .  o|
+|* . . + + . o  ..|
+|=o o o *S+ . .o .|
+| .. o =.o o  . . |
+|     = =..   E   |
+|    o o.*   .    |
+|   ...o+ .oo     |
++----[SHA256]-----+
+[root@hostname01 ~]# ls .ssh
+id_rsa  id_rsa.pub
+[root@hostname01 ~]# ssh-copy-id pratham@192.168.127.128
+/usr/bin/ssh-copy-id: INFO: Source of key(s) to be installed: "/root/.ssh/id_rsa.pub"
+The authenticity of host '192.168.127.128 (192.168.127.128)' can't be established.
+ED25519 key fingerprint is SHA256:GSSyyXDl5WTice/Z9kKjBdaqex8IfFGS/2Cw+vcb3h8.
+This key is not known by any other names
+Are you sure you want to continue connecting (yes/no/[fingerprint])? yes
+/usr/bin/ssh-copy-id: INFO: attempting to log in with the new key(s), to filter out any that are already installed
+/usr/bin/ssh-copy-id: INFO: 1 key(s) remain to be installed -- if you are prompted now it is to install the new keys
+pratham@192.168.127.128's password: 
+
+Number of key(s) added: 1
+
+Now try logging into the machine, with:   "ssh 'pratham@192.168.127.128'"
+and check to make sure that only the key(s) you wanted were added.
+
+[root@hostname01 ~]# ssh pratham@192.168.127.128
+Last login: Thu Jan 23 23:53:35 2025
+[pratham@hostname01 ~]$ su -
+Password: 
+[root@hostname01 ~]# ls
+anaconda-ks.cfg  Desktop  Documents  Downloads  Music  Pictures  Public  Templates  Videos
+[root@hostname01 ~]# ls -lh
+total 4.0K
+-rw-------. 1 root root 828 Aug 25  2022 anaconda-ks.cfg
+drwxr-xr-x. 2 root root   6 Aug 25  2022 Desktop
+drwxr-xr-x. 2 root root   6 Aug 25  2022 Documents
+drwxr-xr-x. 2 root root   6 Aug 25  2022 Downloads
+drwxr-xr-x. 2 root root   6 Aug 25  2022 Music
+drwxr-xr-x. 2 root root   6 Aug 25  2022 Pictures
+drwxr-xr-x. 2 root root   6 Aug 25  2022 Public
+drwxr-xr-x. 2 root root   6 Aug 25  2022 Templates
+drwxr-xr-x. 2 root root   6 Aug 25  2022 Videos
+[root@hostname01 ~]# mkdir my_files
+[root@hostname01 ~]# cd myfiles
+-bash: cd: myfiles: No such file or directory
+[root@hostname01 ~]# cd my_files
+[root@hostname01 my_files]# touch file{1..10}
+[root@hostname01 my_files]# ls
+file1  file10  file2  file3  file4  file5  file6  file7  file8  file9
+[root@hostname01 my_files]# cd
+[root@hostname01 ~]# ls -lh
+total 4.0K
+-rw-------. 1 root root 828 Aug 25  2022 anaconda-ks.cfg
+drwxr-xr-x. 2 root root   6 Aug 25  2022 Desktop
+drwxr-xr-x. 2 root root   6 Aug 25  2022 Documents
+drwxr-xr-x. 2 root root   6 Aug 25  2022 Downloads
+drwxr-xr-x. 2 root root   6 Aug 25  2022 Music
+drwxr-xr-x. 2 root root 137 Jan 24 00:25 my_files
+drwxr-xr-x. 2 root root   6 Aug 25  2022 Pictures
+drwxr-xr-x. 2 root root   6 Aug 25  2022 Public
+drwxr-xr-x. 2 root root   6 Aug 25  2022 Templates
+drwxr-xr-x. 2 root root   6 Aug 25  2022 Videos
+[root@hostname01 ~]# time tar -czvf my_files.tar.gz backup/
+tar: backup: Cannot stat: No such file or directory
+tar: Exiting with failure status due to previous errors
+
+real	0m0.046s
+user	0m0.010s
+sys	0m0.023s
+[root@hostname01 ~]# mkdir backup
+[root@hostname01 ~]# time tar -czvf my_files.tar.gz backup/
+backup/
+
+real	0m0.021s
+user	0m0.002s
+sys	0m0.020s
+[root@hostname01 ~]# cd backup
+[root@hostname01 backup]# ls
+[root@hostname01 backup]# cd
+[root@hostname01 ~]# ls
+anaconda-ks.cfg  Desktop    Downloads  my_files         Pictures  Templates
+backup           Documents  Music      my_files.tar.gz  Public    Videos
+[root@hostname01 ~]# time tar -xzvf my_files.tar.gz backup/
+backup/
+
+real	0m0.019s
+user	0m0.005s
+sys	0m0.013s
+[root@hostname01 ~]# ls backup/
+[root@hostname01 ~]# ls -lh
+total 8.0K
+-rw-------. 1 root root 828 Aug 25  2022 anaconda-ks.cfg
+drwxr-xr-x. 2 root root   6 Jan 24 00:39 backup
+drwxr-xr-x. 2 root root   6 Aug 25  2022 Desktop
+drwxr-xr-x. 2 root root   6 Aug 25  2022 Documents
+drwxr-xr-x. 2 root root   6 Aug 25  2022 Downloads
+drwxr-xr-x. 2 root root   6 Aug 25  2022 Music
+drwxr-xr-x. 2 root root 137 Jan 24 00:25 my_files
+-rw-r--r--. 1 root root 111 Jan 24 00:39 my_files.tar.gz
+drwxr-xr-x. 2 root root   6 Aug 25  2022 Pictures
+drwxr-xr-x. 2 root root   6 Aug 25  2022 Public
+drwxr-xr-x. 2 root root   6 Aug 25  2022 Templates
+drwxr-xr-x. 2 root root   6 Aug 25  2022 Videos
+[root@hostname01 ~]# mkdir test
+[root@hostname01 ~]# cd test
+[root@hostname01 test]# touch mytxt{1..15}
+[root@hostname01 test]# ls
+mytxt1   mytxt11  mytxt13  mytxt15  mytxt3  mytxt5  mytxt7  mytxt9
+mytxt10  mytxt12  mytxt14  mytxt2   mytxt4  mytxt6  mytxt8
+[root@hostname01 test]# cd
+[root@hostname01 ~]# mkdir test_backup
+[root@hostname01 ~]# ls test_backup/
+[root@hostname01 ~]# ls
+anaconda-ks.cfg  Desktop    Downloads  my_files         Pictures  Templates  test_backup
+backup           Documents  Music      my_files.tar.gz  Public    test       Videos
+[root@hostname01 ~]# cd test
+[root@hostname01 test]# ls
+mytxt1   mytxt11  mytxt13  mytxt15  mytxt3  mytxt5  mytxt7  mytxt9
+mytxt10  mytxt12  mytxt14  mytxt2   mytxt4  mytxt6  mytxt8
+[root@hostname01 test]# touch mytxt{16..20}
+[root@hostname01 test]# ls
+mytxt1   mytxt11  mytxt13  mytxt15  mytxt17  mytxt19  mytxt20  mytxt4  mytxt6  mytxt8
+mytxt10  mytxt12  mytxt14  mytxt16  mytxt18  mytxt2   mytxt3   mytxt5  mytxt7  mytxt9
+[root@hostname01 test]# cd
+[root@hostname01 ~]# time rsync -avh /root/test/ /root/test_backup/
+sending incremental file list
+./
+mytxt1
+mytxt10
+mytxt11
+mytxt12
+mytxt13
+mytxt14
+mytxt15
+mytxt16
+mytxt17
+mytxt18
+mytxt19
+mytxt2
+mytxt20
+mytxt3
+mytxt4
+mytxt5
+mytxt6
+mytxt7
+mytxt8
+mytxt9
+
+sent 1.11K bytes  received 399 bytes  3.02K bytes/sec
+total size is 0  speedup is 0.00
+
+real	0m0.079s
+user	0m0.002s
+sys	0m0.034s
+[root@hostname01 ~]# ls test_backup/
+mytxt1   mytxt11  mytxt13  mytxt15  mytxt17  mytxt19  mytxt20  mytxt4  mytxt6  mytxt8
+mytxt10  mytxt12  mytxt14  mytxt16  mytxt18  mytxt2   mytxt3   mytxt5  mytxt7  mytxt9
+
+
+[user1@vci ~]$ su -
+Password: 
+[root@vci ~]# ps
+    PID TTY          TIME CMD
+  41757 pts/2    00:00:00 su
+  41770 pts/2    00:00:00 bash
+  41796 pts/2    00:00:00 ps
+[root@vci ~]# man ps
+[root@vci ~]# ps -ef | grep httpd
+root       41817   41770  0 01:41 pts/2    00:00:00 grep --color=auto httpd
+[root@vci ~]# kill -l
+ 1) SIGHUP	 2) SIGINT	 3) SIGQUIT	 4) SIGILL	 5) SIGTRAP
+ 6) SIGABRT	 7) SIGBUS	 8) SIGFPE	 9) SIGKILL	10) SIGUSR1
+11) SIGSEGV	12) SIGUSR2	13) SIGPIPE	14) SIGALRM	15) SIGTERM
+16) SIGSTKFLT	17) SIGCHLD	18) SIGCONT	19) SIGSTOP	20) SIGTSTP
+21) SIGTTIN	22) SIGTTOU	23) SIGURG	24) SIGXCPU	25) SIGXFSZ
+26) SIGVTALRM	27) SIGPROF	28) SIGWINCH	29) SIGIO	30) SIGPWR
+31) SIGSYS	34) SIGRTMIN	35) SIGRTMIN+1	36) SIGRTMIN+2	37) SIGRTMIN+3
+38) SIGRTMIN+4	39) SIGRTMIN+5	40) SIGRTMIN+6	41) SIGRTMIN+7	42) SIGRTMIN+8
+43) SIGRTMIN+9	44) SIGRTMIN+10	45) SIGRTMIN+11	46) SIGRTMIN+12	47) SIGRTMIN+13
+48) SIGRTMIN+14	49) SIGRTMIN+15	50) SIGRTMAX-14	51) SIGRTMAX-13	52) SIGRTMAX-12
+53) SIGRTMAX-11	54) SIGRTMAX-10	55) SIGRTMAX-9	56) SIGRTMAX-8	57) SIGRTMAX-7
+58) SIGRTMAX-6	59) SIGRTMAX-5	60) SIGRTMAX-4	61) SIGRTMAX-3	62) SIGRTMAX-2
+63) SIGRTMAX-1	64) SIGRTMAX	
+[root@vci ~]# sleep 60
+[root@vci ~]# sleep 100
+Terminated
+[root@vci ~]# sleep 100
+Killed
+[root@vci ~]# sleep 100
+
+[root@vci ~]# sleep 100
+Terminated
+[root@vci ~]# sleep 10
+^Z
+[1]+  Stopped                 sleep 10
+[root@vci ~]# jobs
+[1]+  Stopped                 sleep 10
+[root@vci ~]# fg
+sleep 10
+[root@vci ~]# sleep 20
+^Z
+[1]+  Stopped                 sleep 20
+[root@vci ~]# bg
+[1]+ sleep 20 &
+[root@vci ~]# jobs
+[1]+  Done                    sleep 20
+[root@vci ~]# sleep 20
+^Z
+[1]+  Stopped                 sleep 20
+[root@vci ~]# sleep 200
+^Z
+[2]+  Stopped                 sleep 200
+[root@vci ~]# sleep 2000
+^Z
+[3]+  Stopped                 sleep 2000
+[root@vci ~]# jobs
+[1]   Stopped                 sleep 20
+[2]-  Stopped                 sleep 200
+[3]+  Stopped                 sleep 2000
+[root@vci ~]# fg %1
+sleep 20
+[root@vci ~]# ps -ef | grep sleep
+root       41988   41770  0 01:58 pts/2    00:00:00 sleep 200
+root       41993   41770  0 01:58 pts/2    00:00:00 sleep 2000
+root       42069   41770  0 02:07 pts/2    00:00:00 grep --color=auto sleep
+[root@vci ~]# ps -l 41993
+F S   UID     PID    PPID  C PRI  NI ADDR SZ WCHAN  TTY        TIME CMD
+0 T     0   41993   41770  0  80   0 - 55238 do_sig pts/2      0:00 sleep 2000
+[root@vci ~]# kill -9 41993
+[3]+  Killed                  sleep 2000
+[root@vci ~]# ps -ef | grep sleep
+root       41988   41770  0 01:58 pts/2    00:00:00 sleep 200
+root       42091   41770  0 02:09 pts/2    00:00:00 grep --color=auto sleep
+[root@vci ~]# jobs
+[2]+  Stopped                 sleep 200
+[root@vci ~]# nice -n -3 sleep 2000
+^Z
+[3]+  Stopped                 nice -n -3 sleep 2000
+[root@vci ~]# ps -ef | grep sleep
+root       41988   41770  0 01:58 pts/2    00:00:00 sleep 200
+root       42098   41770  0 02:10 pts/2    00:00:00 sleep 2000
+root       42100   41770  0 02:11 pts/2    00:00:00 grep --color=auto sleep
+[root@vci ~]# ps -l 42098
+F S   UID     PID    PPID  C PRI  NI ADDR SZ WCHAN  TTY        TIME CMD
+4 T     0   42098   41770  0  77  -3 - 55238 do_sig pts/2      0:00 sleep 2000
+[root@vci ~]# 
+
+
+
+
