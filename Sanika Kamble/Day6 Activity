@@ -163,6 +163,9 @@ Remote Backup using rsync
 HOST1
 
 [root@hostname01 ~]# crontab -e
+
+* * * * * /usr/bin/rsync -avz -e "ssh" /root/scptest/ admin@hostname03:/home/admin/rsync_backup
+
 crontab: installing new crontab
 [root@hostname01 ~]# which rsync
 /usr/bin/rsync
