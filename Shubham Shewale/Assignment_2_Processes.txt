@@ -1,0 +1,27 @@
+1. Find out the PID of the processes that are activated by you: ps -f
+
+2. Find out the information about all the processes that are currently active: ps aux
+
+3. Start a different process in the background. Find out the status of the background process using the PID of the same: sleep 600 &, jobs
+
+4. Run a job in background: sleep 600 &
+
+5. Bring a last background job in fore ground: fg 2 (2 is job id, not process id)
+
+6. Run 3 jobs in background and bring first job in foreground: sleep 600 &, sleep 700 &, sleep 800 &, fg 2 
+
+7. Stop current job: fg 5, CTRL+Z
+
+8. Start stopped job: bg 5
+
+9. Run a job: fg 5
+
+10. Kill last job: ps -f, kill -9 6687
+
+11. Kill your shell using process id: kill -9 6267  
+
+12. Execute a ls command by setting priority as -10 using nice command: nice -n -10 ls, top
+
+13. Display a date on every hour using crontab: crontab -e, 0 * * * * date>> /var/log/cron, crontab -l
+
+
