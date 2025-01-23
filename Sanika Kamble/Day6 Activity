@@ -158,6 +158,34 @@ Desktop          Downloads  employee.dat  History.txt       Music      Public   
 4.0K	scptest.backup.tar.bz2
 [root@hostname01 ~]# 
 
+*****************************************************************************************************************************
+Remote Backup using rsync
+HOST1
+
+[root@hostname01 ~]# crontab -e
+crontab: installing new crontab
+[root@hostname01 ~]# which rsync
+/usr/bin/rsync
+[root@hostname01 ~]# crontab -e
+crontab: installing new crontab
+[root@hostname01 ~]# ls
+anaconda-ks.cfg  Documents  ECAP.dat      employee.dat.bak  kern.conf  Pictures  scptest                 Templates  y
+Desktop          Downloads  employee.dat  History.txt       Music      Public    scptest.backup.tar.bz2  Videos     y.pub
+[root@hostname01 scptest]# ls
+testfile1
+[root@hostname01 scptest]# cat > testfile2
+[root@hostname01 scptest]# cat testfile2
+This is testfile2
+[admin@hostname01 etc]$ 
+
+HOST2
+
+[admin@hostname02 rsync_backup]$ ls
+testfile1  testfile2
+[admin@hostname02 rsync_backup]$ 
+
+
+
 
 
 
