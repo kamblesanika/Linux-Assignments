@@ -1,0 +1,41 @@
+****************************************************************************************************
+vim /etc/hosts
+          127.0.0.1   localhost localhost.localdomain localhost4 localhost4.localdomain4
+          ::1         localhost localhost.localdomain localhost6 localhost6.localdomain6
+          192.168.127.129 hostname02 host2
+                                  
+netstat -tulnp
+netstat -tulnp |grep ssh
+vim hosts
+firewall-cmd --list -services
+firewall-cmd --list-services
+ssh admin@hostname02
+ssh-keygen 
+ssh-copy-id admin@hostname02
+ssh admin@hostname02
+
+
+SCP from Host01 to Host02
+Host1
+[root@hostname01 ~]# scp /root/scptest/testfile1a admin@hostname02:/home/admin/test/
+testfile1a                                                                                                                100%   80    24.2KB/s   00:00    
+[root@hostname01 ~]# time scp /root/scptest/testfile1a admin@hostname02:/home/admin/test/
+testfile1a                                                                                                                100%   80    23.4KB/s   00:00    
+real	0m0.684s
+user	0m0.080s
+sys	0m0.054s
+[root@hostname01 ~]#
+
+Host 2
+[admin@hostname02 ~]$ ls
+Desktop  Documents  Downloads  Music  Pictures  Public  Templates  testfile1  testfile2  testfile3  testfile4  testfile5  testscp  Videos  y  y.pub
+[admin@hostname02 ~]$ mkdir test
+[admin@hostname02 ~]$ cd test
+[admin@hostname02 test]$ ls
+testfile1a
+[admin@hostname02 test]$
+
+
+
+
+
