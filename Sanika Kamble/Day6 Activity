@@ -34,6 +34,131 @@ Desktop  Documents  Downloads  Music  Pictures  Public  Templates  testfile1  te
 [admin@hostname02 test]$ ls
 testfile1a
 [admin@hostname02 test]$
+********************************************************************************************************************************
+Backup using tar
+
+[root@hostname01 ~]# ls
+anaconda-ks.cfg  Documents  ECAP.dat      employee.dat.bak  kern.conf  Pictures  scptest    Videos  y.pub
+Desktop          Downloads  employee.dat  History.txt       Music      Public    Templates  y
+[root@hostname01 ~]# tar -cvf scptest.backup.tar /root/scptest/ 
+tar: Removing leading `/' from member names
+/root/scptest/
+/root/scptest/testfile1
+/root/scptest/testfile1a
+/root/scptest/testfile1b
+/root/scptest/testfile1c
+/root/scptest/testfile2a
+/root/scptest/testfile2b
+/root/scptest/testfile2c
+/root/scptest/testfile3a
+/root/scptest/testfile3b
+/root/scptest/testfile3c
+[root@hostname01 ~]# cd scptest/
+[root@hostname01 scptest]# ls
+testfile1  testfile1a  testfile1b  testfile1c  testfile2a  testfile2b  testfile2c  testfile3a  testfile3b  testfile3c
+[root@hostname01 scptest]# cd root
+bash: cd: root: No such file or directory
+[root@hostname01 scptest]# cd /root
+[root@hostname01 ~]# ls
+anaconda-ks.cfg  Documents  ECAP.dat      employee.dat.bak  kern.conf  Pictures  scptest             Templates  y
+Desktop          Downloads  employee.dat  History.txt       Music      Public    scptest.backup.tar  Videos     y.pub
+[root@hostname01 ~]# tar -tvf scptest.backup.tar 
+drwxr-xr-x root/root         0 2025-01-23 19:54 root/scptest/
+-rw-r--r-- root/root         0 2025-01-23 19:52 root/scptest/testfile1
+-rw-r--r-- root/root        80 2025-01-23 19:55 root/scptest/testfile1a
+-rw-r--r-- root/root         0 2025-01-23 19:54 root/scptest/testfile1b
+-rw-r--r-- root/root         0 2025-01-23 19:54 root/scptest/testfile1c
+-rw-r--r-- root/root         0 2025-01-23 19:54 root/scptest/testfile2a
+-rw-r--r-- root/root         0 2025-01-23 19:54 root/scptest/testfile2b
+-rw-r--r-- root/root         0 2025-01-23 19:54 root/scptest/testfile2c
+-rw-r--r-- root/root         0 2025-01-23 19:54 root/scptest/testfile3a
+-rw-r--r-- root/root         0 2025-01-23 19:54 root/scptest/testfile3b
+-rw-r--r-- root/root         0 2025-01-23 19:54 root/scptest/testfile3c
+[root@hostname01 ~]# rm scptest.backup.tar 
+rm: remove regular file 'scptest.backup.tar'? 
+[root@hostname01 ~]# ls
+anaconda-ks.cfg  Documents  ECAP.dat      employee.dat.bak  kern.conf  Pictures  scptest             Templates  y
+Desktop          Downloads  employee.dat  History.txt       Music      Public    scptest.backup.tar  Videos     y.pub
+[root@hostname01 ~]# rm scptest.backup.tar 
+rm: remove regular file 'scptest.backup.tar'? y
+[root@hostname01 ~]# ls
+anaconda-ks.cfg  Documents  ECAP.dat      employee.dat.bak  kern.conf  Pictures  scptest    Videos  y.pub
+Desktop          Downloads  employee.dat  History.txt       Music      Public    Templates  y
+[root@hostname01 ~]# time tar -czvf scptest.backup.tar /root/scptest 
+tar: Removing leading `/' from member names
+/root/scptest/
+/root/scptest/testfile1
+/root/scptest/testfile1a
+/root/scptest/testfile1b
+/root/scptest/testfile1c
+/root/scptest/testfile2a
+/root/scptest/testfile2b
+/root/scptest/testfile2c
+/root/scptest/testfile3a
+/root/scptest/testfile3b
+/root/scptest/testfile3c
+
+real	0m0.025s
+user	0m0.009s
+sys	0m0.013s
+[root@hostname01 ~]# ls
+anaconda-ks.cfg  Documents  ECAP.dat      employee.dat.bak  kern.conf  Pictures  scptest             Templates  y
+Desktop          Downloads  employee.dat  History.txt       Music      Public    scptest.backup.tar  Videos     y.pub
+[root@hostname01 ~]# ls -lh
+total 32K
+-rw-------. 1 root root  828 Aug 25  2022 anaconda-ks.cfg
+drwxr-xr-x. 2 root root    6 Aug 25  2022 Desktop
+drwxr-xr-x. 2 root root    6 Aug 25  2022 Documents
+drwxr-xr-x. 2 root root    6 Aug 25  2022 Downloads
+-rw-r--r--. 1 root root   25 Jan 21 00:22 ECAP.dat
+-rw-r--r--. 1 root root   74 Jan 21 00:17 employee.dat
+-rw-r--r--. 1 root root  147 Jan 21 00:00 employee.dat.bak
+-rw-r--r--. 1 root root 1.3K Jan 21 20:45 History.txt
+-rw-r--r--. 1 root root    0 Jan 20 23:50 kern.conf
+drwxr-xr-x. 2 root root    6 Aug 25  2022 Music
+drwxr-xr-x. 2 root root    6 Aug 25  2022 Pictures
+drwxr-xr-x. 2 root root    6 Aug 25  2022 Public
+drwxr-xr-x. 2 root root  185 Jan 23 19:54 scptest
+-rw-r--r--. 1 root root  309 Jan 23 20:25 scptest.backup.tar
+drwxr-xr-x. 2 root root    6 Aug 25  2022 Templates
+drwxr-xr-x. 2 root root    6 Aug 25  2022 Videos
+-rw-------. 1 root root 2.6K Jan 23 19:11 y
+-rw-r--r--. 1 root root  569 Jan 23 19:11 y.pub
+[root@hostname01 ~]# ls -lh scptest.backup.tar 
+-rw-r--r--. 1 root root 309 Jan 23 20:25 scptest.backup.tar
+[root@hostname01 ~]# du -lh scptest.backup.tar 
+4.0K	scptest.backup.tar
+[root@hostname01 ~]# du -lh scptest
+4.0K	scptest
+[root@hostname01 ~]# rm scptest.backup.tar 
+rm: remove regular file 'scptest.backup.tar'? y
+[root@hostname01 ~]# ls
+anaconda-ks.cfg  Documents  ECAP.dat      employee.dat.bak  kern.conf  Pictures  scptest    Videos  y.pub
+Desktop          Downloads  employee.dat  History.txt       Music      Public    Templates  y
+[root@hostname01 ~]# tar scp
+scpa  scpB  scpf  scpg  scph  scpi  scpj  scpk  scpl  scpm  scpn  scpo  scpP  scpS  scpU  scpV  scpW  scpz  
+scpb  scpC  scpF  scpG  scpH  scpI  scpJ  scpK  scpL  scpM  scpN  scpO  scpR  scpT  scpv  scpw  scpX  scpZ  
+[root@hostname01 ~]# tar -cvjf scptest.backup.tar.bz2 /root/scptest
+tar: Removing leading `/' from member names
+/root/scptest/
+/root/scptest/testfile1
+/root/scptest/testfile1a
+/root/scptest/testfile1b
+/root/scptest/testfile1c
+/root/scptest/testfile2a
+/root/scptest/testfile2b
+/root/scptest/testfile2c
+/root/scptest/testfile3a
+/root/scptest/testfile3b
+/root/scptest/testfile3c
+[root@hostname01 ~]# ls
+anaconda-ks.cfg  Documents  ECAP.dat      employee.dat.bak  kern.conf  Pictures  scptest                 Templates  y
+Desktop          Downloads  employee.dat  History.txt       Music      Public    scptest.backup.tar.bz2  Videos     y.pub
+[root@hostname01 ~]# du -lh scptest.backup.tar.bz2 
+4.0K	scptest.backup.tar.bz2
+[root@hostname01 ~]# 
+
+
 
 
 
